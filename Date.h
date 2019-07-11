@@ -9,8 +9,15 @@
  Assignment: 1
  ---------------------------------------------------------------------*/
 
+
+
 #ifndef NAMESPACE_DATE_H
 #define NAMESPACE_DATE_H
+
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <string>
 
 namespace aid {
 
@@ -18,7 +25,7 @@ namespace aid {
     #define CIN_FAILED 1  // istream failed on information entry
     #define DAY_ERROR  2  // Day value is invalid
     #define MON_ERROR  3  // Month value is invalid
-    #define EAR_ERROR 4   // Year value is invalid
+    #define YEAR_ERROR 4   // Year value is invalid
     #define PAST_ERROR 5  // Date value is invalid
 
     const int min_year = 2018;
@@ -35,15 +42,37 @@ namespace aid {
         int errorState;
 
         void errCode(int errorCode);
-        int Date::mdays(int year, int mon) const;
+        int mdays(int year, int mon) const;
         void setEmptyState();
+        bool parseDate(std::string dateString, std::string delimiter);
 
         public:
             Date();
             Date(int year, int month, int day);
             ~Date();
+
+            int errCode() const;
+            bool bad() const;
+            void setDate(int year, int month, int day);
+            std::istream& read(std::istream& istr);
+            std::ostream& write(std::ostream& ostr) const;
+
+            bool operator==(const Date& rhs) const;
+            bool operator!=(const Date& rhs) const;
+            bool operator<(const Date& rhs) const;
+            bool operator>(const Date& rhs) const;
+            bool operator<=(const Date& rhs) const;
+            bool operator>=(const Date& rhs) const;
     };
 
+    
+
 } // namespace aid
+
+
+std::ostream& operator<<(std::ostream &output, const aid::Date& date);
+std::istream& operator>>(std::istream &input, aid::Date& date);
+
+std::vector<std::string> split(std::string  value, std::string delimiter);
 
 #endif
