@@ -9,6 +9,7 @@
  ---------------------------------------------------------------------*/
 
 #include "Date.h"
+#include <iomanip>
 
 using namespace aid;
 using namespace std;
@@ -68,7 +69,7 @@ std::istream &Date::read(std::istream &istr)
 
 std::ostream &Date::write(std::ostream &ostr) const
 {
-    ostr << this->year << "/" << this->month << "/" << this->day;
+    ostr << setw(4) << setfill('0') << this->year << "/" << setw(2) << setfill('0') << this->month << "/" << setw(2) << setfill('0') << this->day;
 
     return ostr;
 }
@@ -147,7 +148,6 @@ void Date::setDate(int year, int month, int day) {
     }
     else
     {
-
         this->timestamp = year * 372 + month * 31 + day;
         if (this->timestamp >= min_date)
         {
@@ -155,7 +155,6 @@ void Date::setDate(int year, int month, int day) {
             this->year = year;
             this->month = month;
             this->day = day;
-            this->timestamp = this->year * 372 + this->month * 31 + this->day;
         }
         else
         {
@@ -193,7 +192,6 @@ bool Date::parseDate(string dateString, string delimiter)
 
 std::ostream &operator<<(std::ostream &output, const Date &date)
 {
-
     date.write(output);
     return output;
 }
