@@ -166,6 +166,7 @@ void Date::setDate(int year, int month, int day) {
 
 bool Date::parseDate(string dateString, string delimiter)
 {
+    bool isValid = false;
     vector<string> v1 = split(dateString, delimiter);
 
     if (v1.size() == 3)
@@ -178,14 +179,14 @@ bool Date::parseDate(string dateString, string delimiter)
 
             this->setDate(year, month, day);
 
-            return true;
+            isValid = true;
         }
         catch (const std::exception &e)
         {
         }
     }
 
-    return false;
+    return isValid;
 }
 
 // Helper Functions
