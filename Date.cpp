@@ -69,7 +69,7 @@ std::istream &Date::read(std::istream &istr)
 
 std::ostream &Date::write(std::ostream &ostr) const
 {
-    ostr << setw(4) << setfill('0') << this->year << "/" << setw(2) << setfill('0') << this->month << "/" << setw(2) << setfill('0') << this->day;
+    ostr << this->year << "/" << setw(2) << setfill('0') << this->month << "/" << setw(2) << setfill('0') << this->day;
 
     return ostr;
 }

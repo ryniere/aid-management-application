@@ -1,0 +1,6 @@
+Script started on Mon 15 Jul 2019 11:06:36 AM EDT
+[38;5;9mBegin Testing the Program!
+--------------------------[0m
+
+
+Script done on Mon 15 Jul 2019 11:06:36 AM EDT
