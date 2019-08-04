@@ -1,95 +1,248 @@
-Script started on Wed 31 Jul 2019 09:13:06 AM EDT
+Script started on Sun 04 Aug 2019 03:05:00 PM EDT
 [38;5;9mBegin Testing the Program!
 --------------------------[0m
 
-Checking constants:
-------------------------------
-	max_sku_length: 7
-	max_unit_length: 10
-	max_name_length: 75
-	tax_rate: 0.13
-------------------------------n
-Empty Good:
-
-u("4321", "Rice"):
+Test creator:
 
 
-Please enter the following information:
- Sku: 1234
- Name (no spaces): Blanket
- Unit: pair
+No product: true
+--Good test:
+----Taxed validation test:
+Enter the following: 
+ Sku: abc
+ Name (no spaces): abc
+ Unit: abc
+ Taxed? (y/n): a
+
+ Sku: abc
+ Name (no spaces): abc
+ Unit: abc
+ Taxed? (y/n): a
+
+Passed!
+ Message should be:  Only (Y)es or (N)o are acceptable
+ Your Error message: Only (Y)es or (N)o are acceptable
+Press enter to continue ... 
+
+----Price validation test:
+Enter the following: 
+ Sku: abc
+ Name (no spaces): abc
+ Unit: abc
  Taxed? (y/n): y
- Price: 12.34
- Quantity on hand: 12
- Quantity needed: 23
+ Price: abc
 
-Enter Good Info: 
- Sku: 1234
- Name (no spaces): Blanket
- Unit: pair
+ Sku: abc
+ Name (no spaces): abc
+ Unit: abc
  Taxed? (y/n): y
- Price: 12.34
- Quantity on hand: 12
- Quantity needed: 23
+ Price: abc
 
-Testing:
- s.store(): 
-  s: 1234   |Blanket             |  13.94|  12|pair      |  23|
- t.load(): 
-  t: 1234   |Blanket             |  13.94|  12|pair      |  23|
- X(const X&): X v = s
-  v: 1234   |Blanket             |  13.94|  12|pair      |  23|
-  s: 1234   |Blanket             |  13.94|  12|pair      |  23|
- X& operator=(const X&): u = t
-  t: 1234   |Blanket             |  13.94|  12|pair      |  23|
-  u: 1234   |Blanket             |  13.94|  12|pair      |  23|
- bool operator==(const char*) const: OK
- int operator+=(int): u += 100 
-  u: 1234   |Blanket             |  13.94|  12|pair      |  23|
-  u: 1234   |Blanket             |  13.94| 112|pair      |  23|
- double operator+=(double&, const Good&) : 200 += u
-  ?:1761.75 = 1761.75
+Passed!
+ Message should be:  Invalid Price Entry
+ Your Error message: Invalid Price Entry
+Press enter to continue ... 
 
-Please enter the following information:
- Sku: abcd
- Name (no spaces): Jacket
- Unit: n/a
+----Quantity validation test:
+Enter the following: 
+ Sku: abc
+ Name (no spaces): abc
+ Unit: abc
+ Taxed? (y/n): y
+ Price: 10
+ Quantity on hand: abc
+
+ Sku: abc
+ Name (no spaces): abc
+ Unit: abc
+ Taxed? (y/n): y
+ Price: 10
+ Quantity on hand: abc
+
+Passed!
+ Message should be:  Invalid Quantity Entry
+ Your Error message: Invalid Quantity Entry
+Press enter to continue ... 
+
+----Quantity Needed validation test:
+Enter the following: 
+ Sku: abc
+ Name (no spaces): abc
+ Unit: abc
+ Taxed? (y/n): y
+ Price: 10
+ Quantity on hand: 10
+ Quantity needed: abc
+
+ Sku: abc
+ Name (no spaces): abc
+ Unit: abc
+ Taxed? (y/n): y
+ Price: 10
+ Quantity on hand: 10
+ Quantity needed: abc
+
+Passed!
+ Message should be:  Invalid Quantity Needed Entry
+ Your Error message: Invalid Quantity Needed Entry
+Press enter to continue ... 
+
+----Display test, the output of the Program and yours must match:
+Enter the following: 
+ Sku: 1234
+ Name (no spaces): box
+ Unit: kg
+ Taxed? (y/n): y
+ Price: 123.45
+ Quantity on hand: 1
+ Quantity needed: 5
+
+ Sku: 1234
+ Name (no spaces): box
+ Unit: kg
+ Taxed? (y/n): y
+ Price: 123.45
+ Quantity on hand: 1
+ Quantity needed: 5
+
+-Compare the output of the Program and your output:
+--Linear------------
+ Program: 1234   |box                 | 139.50|   1|kg        |   5|
+   Yours: 1234   |box                 | 139.50|   1|kg        |   5|
+--Form Display------
+--Program: 
+ Sku: 1234
+ Name (no spaces): box
+ Price : 123.45
+ Price after tax : 139.50
+ Quantity on hand : 1 kg
+ Quantity needed : 5
+--Yours: 
+ Sku: 1234
+ Name (no spaces): box
+ Price: 123.45
+ Price after tax: 139.50
+ Quantity on Hand: 1 kg
+ Quantity needed: 5
+Press enter to continue ... 
+----Storage and loading test, the output of the Program and yours must match:
+--Store Good, program: 
+N,1234,box,kg,1,123.45,1,5
+N,1234,box,kg,1,123.45,1,5
+--Store Good, yours: 
+N,1234,box,kg,1,123.45,1,5
+N,1234,box,kg,1,123.45,1,5
+--Load Good: 
+ Program: 1234   |box                 | 139.50|   1|kg        |   5|
+   Yours: 1234   |box                 | 139.50|   1|kg        |   5|
+
+--Perishable Good test:
+----Expiry date Validation test:
+Enter the following: 
+ Sku: abc
+ Name (no spaces): abc
+ Unit: abc
  Taxed? (y/n): n
- Price: 12.3
- Quantity on hand: 11
- Quantity needed: 22
+ Price: 10
+ Quantity on hand: 10
+ Quantity needed: 10
+ Expiry date (YYYY/MM/DD): 10/1/1
 
-Enter Good Info: 
- Sku: abcd
- Name (no spaces): Jacket
- Unit: n/a
+ Sku: abc
+ Name (no spaces): abc
+ Unit: abc
  Taxed? (y/n): n
- Price: 12.3
- Quantity on hand: 11
- Quantity needed: 22
+ Price: 10
+ Quantity on hand: 10
+ Quantity needed: 10
+ Expiry date (YYYY/MM/DD): 10/1/1
 
-Testing:
- s.store(): 
-  s: abcd   |Jacket              |  12.30|  11|n/a       |  22|
- t.load(): 
-  t: abcd   |Jacket              |  13.90|  11|n/a       |  22|
- X(const X&): X v = s
-  v: abcd   |Jacket              |  12.30|  11|n/a       |  22|
-  s: abcd   |Jacket              |  12.30|  11|n/a       |  22|
- X& operator=(const X&): u = t
-  t: abcd   |Jacket              |  13.90|  11|n/a       |  22|
-  u: abcd   |Jacket              |  13.90|  11|n/a       |  22|
- bool operator==(const char*) const: OK
- int operator+=(int): u += 100 
-  u: abcd   |Jacket              |  13.90|  11|n/a       |  22|
-  u: abcd   |Jacket              |  13.90| 111|n/a       |  22|
- double operator+=(double&, const Good&) : 200 += u
-  ?:1742.79 = 1742.79
+Passed!
+ Message should be:  Invalid Year in Date Entry
+ Your Error message: Invalid Year in Date Entry
+Press enter to continue ... 
 
-abcd	Jacket	n/a	0	12.30	11	22
-----The End
+----Display test, the output of the Program and yours must match:
+Enter the following: 
+ Sku: 1234
+ Name (no spaces): water
+ Unit: liter
+ Taxed? (y/n): n
+ Price: 1.5
+ Quantity on hand: 1
+ Quantity needed: 5
+ Expiry date (YYYY/MM/DD): 2018/06/30
+
+ Sku: 1234
+ Name (no spaces): water
+ Unit: liter
+ Taxed? (y/n): n
+ Price: 1.5
+ Quantity on hand: 1
+ Quantity needed: 5
+ Expiry date (YYYY/MM/DD): 2018/06/30
+
+Passed!
+ Message should be:  Invalid Expiry in Date Entry
+ Your Error message: Invalid Expiry in Date Entry
+Press enter to continue ... 
+
+----Display test, the output of the Program and yours must match:
+Enter the following: 
+ Sku: 1234
+ Name (no spaces): water
+ Unit: liter
+ Taxed? (y/n): n
+ Price: 1.5
+ Quantity on hand: 1
+ Quantity needed: 5
+ Expiry date (YYYY/MM/DD): 2018/12/30
+
+ Sku: 1234
+ Name (no spaces): water
+ Unit: liter
+ Taxed? (y/n): n
+ Price: 1.5
+ Quantity on hand: 1
+ Quantity needed: 5
+ Expiry date (YYYY/MM/DD): 2018/12/30
+
+-Compare the output of the Program and your output:
+--Linear------------
+ Program: 1234   |water               |   1.50|   1|liter     |   5|2018/12/30
+   Yours: 1234   |water               |   1.50|   1|liter     |   5|2018/12/30
+--Form Display------
+--Program: 
+ Sku: 1234
+ Name (no spaces): water
+ Price : 1.50
+ Price after tax : N/A
+ Quantity on hand : 1 liter
+ Quantity needed : 5
+ Expiry date : 2018/12/30
+--Yours: 
+ Sku: 1234
+ Name (no spaces): water
+ Price: 1.50
+ Price after tax: N/A
+ Quantity on Hand: 1 liter
+ Quantity needed: 5
+ Expiry date: 2018/12/30
+
+Press enter to continue ... 
+
+----Storage and loading test, the output of the Program and yours must match:
+--Store Perishable, program: 
+P,1234,water,liter,0,1.5,1,5,2018/12/30
+P,1234,water,liter,0,1.5,1,5,2018/12/30
+--Store Perishable, yours: 
+P,1234,water,liter,0,1.50,1,5,2018/12/30
+P,1234,water,liter,0,1.50,1,5,2018/12/30
+--Load Perishable: 
+ Program: 1234   |water               |   1.50|   1|liter     |   5|2018/12/30
+   Yours: 1234   |water               |   1.50|   1|liter     |   5|2018/12/30
 
 [38;5;9m------------------------
 End Testing the Program![0m
 
-Script done on Wed 31 Jul 2019 09:13:41 AM EDT
+Script done on Sun 04 Aug 2019 03:07:16 PM EDT

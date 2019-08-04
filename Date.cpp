@@ -138,7 +138,11 @@ void Date::setDate(int year, int month, int day)
     
     int timestamp = year * 372 + month * 31 + day;
     
-    if (timestamp < min_date)
+    if (year < 1000) {
+        this->errCode(YEAR_ERROR);
+        this->setEmptyState();
+    }
+    else  if (timestamp < min_date)
     {
         this->errCode(PAST_ERROR);
         this->setEmptyState();

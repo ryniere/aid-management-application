@@ -35,17 +35,13 @@ const Date &Perishable::expiry() const
 std::fstream &Perishable::store(std::fstream &file, bool newLine) const
 {
     Good::store(file, false);
-    if (!this->isEmpty() && file.is_open())
+   
+    file << COMMA << this->m_expiryDate;
+    if (newLine)
     {
-        file << COMMA << this->m_expiryDate;
-        if (newLine)
-        {
-            file << endl;
-        }
-        file.clear();
-        file.close();
+        file << endl;
     }
-
+    
     return file;
 }
 
@@ -67,7 +63,7 @@ std::ostream &Perishable::write(std::ostream &os, bool linear) const
     
     Good::write(os, linear);
     
-    if (!isEmpty() && !Good::isClear() )
+    if (!this->m_expiryDate.bad())
     {
         if (linear)
         {
@@ -75,7 +71,7 @@ std::ostream &Perishable::write(std::ostream &os, bool linear) const
         }
         else
         {
-            os << endl << "Expiry date: ";
+            os << endl << " Expiry date: ";
             this->m_expiryDate.write(os);
         }
     }
@@ -91,7 +87,7 @@ std::istream &Perishable::read(std::istream &is)
     if (!is.fail()) {
         
         Date date;
-        cout << "Expiry date (YYYY/MM/DD): ";
+        cout << " Expiry date (YYYY/MM/DD): ";
         date.read(is);
         
         if (date.bad()) {
@@ -110,7 +106,7 @@ std::istream &Perishable::read(std::istream &is)
                     Good::message("Invalid Day in Date Entry");
                     break;
                 case PAST_ERROR:
-                    Good::message("Invalid Expiry Date in Date Entry");
+                    Good::message("Invalid Expiry in Date Entry");
                     break;
                 default:
                     break;
