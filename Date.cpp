@@ -11,8 +11,10 @@
 #include "Date.h"
 #include <iomanip>
 
-using namespace aid;
 using namespace std;
+
+namespace aid
+{
 
 Date::Date()
 {
@@ -60,7 +62,7 @@ std::istream &Date::read(std::istream &istr)
             {
                 this->errCode(CIN_FAILED);
                 this->setEmptyState();
-            }   
+            }
         }
     }
 
@@ -69,7 +71,9 @@ std::istream &Date::read(std::istream &istr)
 
 std::ostream &Date::write(std::ostream &ostr) const
 {
-    ostr << this->year << "/" << setw(2) << setfill('0') << this->month << "/" << setw(2) << setfill('0') << this->day;
+    if (!this->bad()) {
+        ostr << this->year << "/" << setw(2) << setfill('0') << this->month << "/" << setw(2) << setfill('0') << this->day;
+    }
 
     return ostr;
 }
@@ -129,9 +133,17 @@ int Date::mdays(int year, int mon) const
     return days[month] + int((month == 1) * ((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0));
 }
 
-void Date::setDate(int year, int month, int day) {
-
-     if (year < min_year || year > max_year)
+void Date::setDate(int year, int month, int day)
+{
+    
+    int timestamp = year * 372 + month * 31 + day;
+    
+    if (timestamp < min_date)
+    {
+        this->errCode(PAST_ERROR);
+        this->setEmptyState();
+    }
+    else if (year < min_year || year > max_year)
     {
         this->errCode(YEAR_ERROR);
         this->setEmptyState();
@@ -148,26 +160,18 @@ void Date::setDate(int year, int month, int day) {
     }
     else
     {
-        this->timestamp = year * 372 + month * 31 + day;
-        if (this->timestamp >= min_date)
-        {
-            this->errCode(NO_ERROR);
-            this->year = year;
-            this->month = month;
-            this->day = day;
-        }
-        else
-        {
-            this->errCode(PAST_ERROR);
-            this->setEmptyState();
-        }
+        this->timestamp = timestamp;
+        this->errCode(NO_ERROR);
+        this->year = year;
+        this->month = month;
+        this->day = day;
     }
 }
 
-bool Date::parseDate(string dateString, string delimiter)
+bool Date::parseDate(std::string dateString, std::string delimiter)
 {
     bool isValid = false;
-    vector<string> v1 = split(dateString, delimiter);
+    std::vector<std::string> v1 = split(dateString, delimiter);
 
     if (v1.size() == 3)
     {
@@ -217,3 +221,4 @@ std::vector<string> split(string value, string delimiter)
     return v;
 }
 
+} // namespace aid

@@ -65,14 +65,11 @@ namespace aid {
             bool operator>=(const Date& rhs) const;
     };
 
-    
+    std::ostream& operator<<(std::ostream &output, const Date&);
+    std::istream& operator>>(std::istream &input, Date&);
+    std::vector<std::string> split(std::string  value, std::string delimiter);
 
 } // namespace aid
 
-
-std::ostream& operator<<(std::ostream &output, const aid::Date& date);
-std::istream& operator>>(std::istream &input, aid::Date& date);
-
-std::vector<std::string> split(std::string  value, std::string delimiter);
 
 #endif

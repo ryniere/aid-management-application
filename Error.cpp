@@ -41,12 +41,11 @@ bool Error::isClear() const
 
 void Error::message(const char *str)
 {
-    delete[] this->m_message;
-    this->m_message = nullptr;
-
+    
     if (str != nullptr)
     {
-        int size = strlen(str);
+        
+        size_t size = strlen(str);
 
         if (size > 0)
         {
